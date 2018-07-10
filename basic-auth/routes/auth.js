@@ -14,7 +14,10 @@ router.get('/signup', (req, res, next) => {
     res.redirect('/');
     return;
   }
-  res.render('auth/signup'); // without /auth!!
+  const data = {
+    messages: req.flash('signin-error')
+  };
+  res.render('auth/signup', data); // without /auth!!
 });
 
 router.post('/signup', (req, res, next) => {
@@ -27,7 +30,7 @@ router.post('/signup', (req, res, next) => {
   }
 
   if (!username || !password) {
-    // message 'please provide a username and a password
+    req.flash('signin-error', 'Please provide a username and a password');
     res.redirect('/auth/signup');
     return;
   }
@@ -35,7 +38,7 @@ router.post('/signup', (req, res, next) => {
   User.findOne({ username })
     .then(user => {
       if (user !== null) { // Checks if username is unique
-        // message 'that username is already taken'
+        req.flash('signin-error', 'The username is already taken');
         res.redirect('/auth/signup');
         return;
       }

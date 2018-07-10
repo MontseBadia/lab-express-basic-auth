@@ -14,5 +14,12 @@
 
   <div class="field submit">
     <button type="submit">Save</button>
+    {{#if messages.length}}
+    <ul class="validation">
+      {{#each messages}}
+        <li>{{this}}</li>
+      {{/each}}
+    </ul>
+    {{/if}}
   </div>
 </form>
