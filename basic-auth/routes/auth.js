@@ -48,14 +48,17 @@ router.post('/signup', (req, res, next) => {
         password: hashPass
       });
 
-      newUser.save() // Should always go inside findOne, otherwise runs at the same time and findOne does not have time to finish
+      return newUser.save() // Should always go inside findOne, otherwise runs at the same time and findOne does not have time to finish
         .then(() => {
           req.session.currentUser = newUser;
           res.redirect('/');
-        })
-        .catch(next);
+          // return another promise
+          //    .then()
+          //    the error goes up and up until the catch
+        });
+      // .catch(next); --> delete this and add return to newUser.save()
 
-      // newUser.save((err) => {
+      // newUser.save((err, result) => { ---> same as before but in callback function, no promise
       //   if (err) {
       //     res.redirect('/auth/signup');
       //   } else {
@@ -65,6 +68,10 @@ router.post('/signup', (req, res, next) => {
       // });
     })
     .catch(next);
+
+  // .catch(err => { --> same as before
+  //   next(err)
+  // })
 });
 
 router.get('/login', (req, res, next) => {
