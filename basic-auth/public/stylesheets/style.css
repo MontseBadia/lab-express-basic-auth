@@ -7,6 +7,10 @@ a {
   color: #00B7FF;
 }
 
+nav, footer, h1 {
+  text-align: center;
+}
+
 #form {
   margin: 30px auto;
   width: 380px;
