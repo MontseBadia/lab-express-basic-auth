@@ -79,7 +79,10 @@ router.get('/login', (req, res, next) => {
     res.redirect('/');
     return;
   }
-  res.render('auth/login');
+  const data = {
+    messages: req.flash('login-error')
+  };
+  res.render('auth/login', data);
 });
 
 router.post('/login', (req, res, next) => {
@@ -92,7 +95,7 @@ router.post('/login', (req, res, next) => {
   }
 
   if (!username || !password) {
-    // message 'please provide a username and a password'
+    req.flash('login-error', 'Please provide a username and a password');
     res.redirect('/auth/login');
     return;
   }
@@ -100,13 +103,13 @@ router.post('/login', (req, res, next) => {
   User.findOne({ username })
     .then(user => {
       if (!user) {
-        // message 'username or password are incorrect'
+        req.flash('login-error', 'Username or password are incorrect');
         res.redirect('/auth/login');
         return;
       }
 
       if (!bcrypt.compareSync(password, user.password)) {
-        // message 'username or password are incorrect'
+        req.flash('login-error', 'Username or password are incorrect');
         res.redirect('/auth/login');
         return;
       }

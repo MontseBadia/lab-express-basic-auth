@@ -6,6 +6,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const flash = require('connect-flash');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -42,6 +43,8 @@ app.use(session({ // Always before using the routes!!!!!!!
     maxAge: 24 * 60 * 60 * 1000
   }
 }));
+
+app.use(flash()); // always after session middleware!!
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
