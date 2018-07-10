@@ -46,14 +46,15 @@ app.use(session({ // Always before using the routes!!!!!!!
 
 app.use(flash()); // always after session middleware!!
 
+// Create our own middleware
+app.use((req, res, next) => {
+  app.locals.currentUser = req.session.currentUser; // Making currentUser available globally!!!!
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
-
-app.use(function (req, res, next) {
-  app.locals.user = req.session.currentUser; // How to access currentUser from other routes????? --> order matters!!
-  next();
-});
 
 // -- 404 and error handler
 

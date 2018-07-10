@@ -5,6 +5,20 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+    <header>
+      {{#unless currentUser}} {{!-- Cannot use if !currentUser --}}
+      <nav>
+        <a href="/auth/signup">signup</a>
+        <br>
+        <a href="/auth/login">login</a>
+      </nav>
+      {{/unless}}
+      {{#if currentUser}}
+      <p>Logged in as {{currentUser.username}}</p>
+      <a href="/auth/logout">logout</a>
+      {{/if}}
+    </header>
     {{{body}}}
+    <footer>&copy; 2018 Montse</footer>
   </body>
 </html>
