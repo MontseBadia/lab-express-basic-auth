@@ -124,7 +124,7 @@ router.post('/login', (req, res, next) => {
 });
 
 // LOG OUT
-router.get('/logout', (req, res, next) => {
+router.post('/logout', (req, res, next) => { // ---> Needs to be a POST!! Otherwise can be sent to someone else and gets logged out
   delete req.session.currentUser; // IMPORTANT TO KNOW HOW TO DELETE!
   res.redirect('/auth/login');
 });

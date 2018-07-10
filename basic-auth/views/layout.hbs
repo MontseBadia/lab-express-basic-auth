@@ -15,7 +15,10 @@
       {{/unless}}
       {{#if currentUser}}
       <p>Logged in as {{currentUser.username}}</p>
-      <a href="/auth/logout">logout</a>
+      <form action="/auth/logout" method="POST">
+        <button>logout</button>
+      </form>
+      {{!-- <a href="/auth/logout">logout</a> --}}
       {{/if}}
     </header>
     {{{body}}}

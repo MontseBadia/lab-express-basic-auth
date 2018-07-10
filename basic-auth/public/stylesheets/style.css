@@ -7,9 +7,13 @@ a {
   color: #00B7FF;
 }
 
-nav, footer, h1 {
+nav, footer, h1, p, h3 {
   text-align: center;
 }
+
+/* button {
+  margin-left: 48%;
+} */
 
 #form {
   margin: 30px auto;
